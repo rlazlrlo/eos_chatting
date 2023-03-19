@@ -31,7 +31,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   // TODO : background.png 넣기
-                  image: AssetImage('assets/images/background.png'),
+                  image: AssetImage('assets/background.png'),
                   fit: BoxFit.fill
                 ),
               ),
