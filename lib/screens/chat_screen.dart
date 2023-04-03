@@ -14,7 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
   }
   @override
-  Widget build(BuildContext contxt) {
+  Widget build(BuildContext context) {
     return Scaffold(
       // TODO : 사진보고 AppBar 만들기^^
       // TODO : 색은 아무거나 해도 되는데 이왕 하는거 Palette.dart에 추가해서 하는 센스^^
@@ -28,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('chats/XOJBGjRGDOMcKVFbfXwp/message').snapshots(),
+        stream: FirebaseFirestore.instance.collection('/chats/XOJBGjRGDOMcKVFbfXwp/message').snapshots(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
