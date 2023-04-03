@@ -31,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
         stream: FirebaseFirestore.instance.collection('chats/XOJBGjRGDOMcKVFbfXwp/message').snapshots(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
             );
