@@ -1,6 +1,8 @@
+import 'package:eos_chatting/chatting/chat/message.dart';
 import 'package:eos_chatting/config/palette.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eos_chatting/chatting/chat/new_message.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -15,42 +17,29 @@ class _ChatScreenState extends State<ChatScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    var _authentication = FirebaseAuth.instance;
     return Scaffold(
-      // TODO : 사진보고 AppBar 만들기^^
-      // TODO : 색은 아무거나 해도 되는데 이왕 하는거 Palette.dart에 추가해서 하는 센스^^
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Chat screen'),
-        backgroundColor: Palette.appBarColor,
-        leading: Icon(Icons.arrow_back_ios_new),
-        actions: [
-          IconButton(onPressed: ()=>{}, icon: Icon(Icons.exit_to_app), color: Colors.white,)
-        ],
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('/chats/XOJBGjRGDOMcKVFbfXwp/message').snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final docs = snapshot.data!.docs;
-          return ListView.builder(
-            itemCount: docs.length,
-            itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  docs[index]['text'],
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              );
-            },
-          );
-        },
-      ),
+        appBar: AppBar(
+          title: Text('Chat screen', style: TextStyle(color: Colors.white)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  _authentication.signOut();
+                },
+                icon: Icon(Icons.exit_to_app_rounded, color: Colors.white)
+            )
+          ],
+          backgroundColor: Palette.eosColor,
+        ),
+        body: Container(
+          // TODO : 아래 틀에 맞게 message와 new message를 알맞게 배치해 보세요! Message는 Expanded로 감싸주세요!
+          child: Column(
+            children: [
+              Expanded(flex: 2, child: Messages(),),
+              NewMessage(),
+            ],
+          )
+        )
     );
   }
 }

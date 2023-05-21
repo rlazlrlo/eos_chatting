@@ -8,4 +8,5 @@ class Palette {
   static const Color googleColor = Color(0xFF4285F4);
   static const Color backgroundColor = Color(0xFFECF3F9);
   static const Color appBarColor = Color(0XFF20AC4C);
+  static const Color eosColor = Color(0xFF63CC63);
 }
